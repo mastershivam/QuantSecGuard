@@ -22,4 +22,3 @@ A sample output of this tool can be seen below, displaying the last 6 months of 
   - *readme.md*# QuantSecGuard
 
 
-# QuantSecGuard
