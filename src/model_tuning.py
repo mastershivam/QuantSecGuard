@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import IsolationForest

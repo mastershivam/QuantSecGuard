@@ -1,4 +1,6 @@
-
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 # Add features
 def generate_features(df):
     # for each price, get the change in price from the previous price
