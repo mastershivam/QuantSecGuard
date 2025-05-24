@@ -6,7 +6,7 @@ from sklearn.ensemble import IsolationForest
 
 def detect_anomalies(df, n_trees,contamination=0.01, random_state=3):
     features = df[['returns', 'volatility', 'volume']].copy()
-    features['volume'] = features['volume'].fillna(method='ffill')
+    features['volume'] = features['volume'].ffill()
 
     model = IsolationForest(
         n_estimators=n_trees,
