@@ -2,6 +2,8 @@
 
 **QuantSecGuard** is an ML-powered anomaly detection system for financial time series — built at the intersection of quantitative finance, cybersecurity, and machine learning.
 
+Explore this app deployed here: https://quantsecguard-hxshnbl4mxbavkgcotteor.streamlit.app/
+
 ## Overview
 
 This project applies unsupervised learning to detect unusual behavior in market data, simulating real-world use cases like:
