@@ -93,3 +93,7 @@ def estimate_crypto_date_range(interval, limit):
         duration = f"{hours / (24 * 7):.1f} weeks"
 
     return start.date(), now.date(), duration
+
+def get_time_format(interval):
+    intraday_intervals = ['1m', '3m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '8h', '12h']
+    return '%Y-%m-%d %H:%M' if interval in intraday_intervals else '%Y-%m-%d'

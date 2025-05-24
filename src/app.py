@@ -4,17 +4,17 @@ import os
 from datetime import datetime
 import time
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-import matplotlib.dates as mdates
+
 import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
 from data_loader import get_stock_data
 from feature_engineering import generate_features
 from model import detect_anomalies
 from data_loader import get_binance_data
-from utils import estimate_date_range
-from utils import valid_period_interval_map
-from utils import estimate_crypto_date_range
+
+from visualise import graph_plotting
+from utils import *
+
 st.set_page_config(page_title="QuantSecGuard", layout="centered")
 st.title("QuantSecGuard - Market Anomaly Detector")
 
@@ -49,9 +49,7 @@ elif source == "Crypto":
     st.caption(f"📆 Estimated Date Range: {start} → {end}")
 
 
-def get_time_format(interval):
-    intraday_intervals = ['1m', '3m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '8h', '12h']
-    return '%Y-%m-%d %H:%M' if interval in intraday_intervals else '%Y-%m-%d'
+
 
 # data pulling logic
 if st.sidebar.button("Run Detection") or live_update:
@@ -69,27 +67,16 @@ if st.sidebar.button("Run Detection") or live_update:
                 st.info(f"Pulled {len(df)} data points for analysis.")
 
 
-                # Plotting
-                fig, ax = plt.subplots(figsize=(12, 6))
-                ax.plot(df["Datetime"], df["price"], label="Price", color="blue")
-                ax.scatter(anomalies["Datetime"], anomalies["price"], color="red", label="Anomalies", marker="x")
+                # Plotting variables
+                interval_period=crypto_interval if source=="Crypto" else stock_period
+                stock_crypto = crypto_symbol if source == "Crypto" else stock_ticker
 
-                x_format = get_time_format(crypto_interval if source == "Crypto" else stock_period)
-                ax.xaxis.set_major_formatter(mdates.DateFormatter(x_format))
-                plt.xticks(rotation=45)
+                # Calling the Plotting function
+                fig,ax=graph_plotting(df,anomalies,anomalies,source,interval_period,stock_crypto)
 
-                plt.xticks(rotation=45)
-                if source=="Crypto":
-                    ax.set_title(f"Anomalies in {crypto_symbol} Pair")
-                elif source=="Stock":
-                    ax.set_title(f"Stock Price in {stock_ticker} Pair")
-                ax.set_title(f"Anomalies in {stock_ticker if source == 'Stock' else crypto_symbol} Price")
+                #Streamlabs formatting and graph outputs
 
-                ax.set_ylabel("Price")
-                ax.legend()
-                ax.grid(True)
                 st.pyplot(fig)
-
                 st.subheader("Anomaly Table")
                 st.dataframe(anomalies[["Datetime", "price", "volume", "returns", "volatility"]])
                 st.success("✅ Analysis complete")
