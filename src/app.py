@@ -71,8 +71,9 @@ if st.sidebar.button("Run Detection") or live_update:
                 interval_period=crypto_interval if source=="Crypto" else stock_period
                 stock_crypto = crypto_symbol if source == "Crypto" else stock_ticker
 
+
                 # Calling the Plotting function
-                fig,ax=graph_plotting(df,anomalies,anomalies,source,interval_period,stock_crypto)
+                fig,ax=graph_plotting(df,anomalies,source,interval_period,stock_crypto)
 
                 #Streamlabs formatting and graph outputs
 

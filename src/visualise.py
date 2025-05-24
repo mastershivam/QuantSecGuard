@@ -18,7 +18,7 @@ def plot_anomalies(df):
     plt.tight_layout()
     plt.show()
 
-def graph_plotting(figsize,df,anomalies,source,interval_period,stock_crypto):
+def graph_plotting(df,anomalies,source,interval_period,stock_crypto):
     fig, ax = plt.subplots(figsize=(12, 6))
     ax.plot(df["Datetime"], df["price"], label="Price", color="blue")
     ax.scatter(anomalies["Datetime"], anomalies["price"], color="red", label="Anomalies", marker="x")
