@@ -19,6 +19,7 @@ st.set_page_config(page_title="QuantSecGuard", layout="centered")
 st.title("QuantSecGuard - Market Anomaly Detector")
 
 # Sidebar inputs
+model=st.sidebar.radio("Select Model", ["IsolationForest"])
 source = st.sidebar.radio("Data Source", ["Stock", "Crypto"])
 if source == "Crypto":
     crypto_symbol = st.sidebar.text_input("Crypto Pair", "BTCGBP")
@@ -59,11 +60,11 @@ if st.sidebar.button("Run Detection") or live_update:
                 if source=="Stock":
                     df = get_stock_data(ticker=stock_ticker, period=stock_period,interval=stock_interval)
                     df = generate_features(df)
-                    df, anomalies = detect_anomalies(df,n_trees)
+                    df, anomalies = detect_anomalies(model,df,n_trees)
                 elif source=="Crypto":
                     df = get_binance_data(symbol=crypto_symbol, interval=crypto_interval,limit=limit)
                     df = generate_features(df)
-                    df, anomalies = detect_anomalies(df,n_trees)
+                    df, anomalies = detect_anomalies(model,df,n_trees)
                 st.info(f"Pulled {len(df)} data points for analysis.")
 
 
