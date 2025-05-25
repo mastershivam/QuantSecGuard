@@ -7,7 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 import pandas as pd
 from sklearn.ensemble import IsolationForest
 
-def detect_anomalies(model,df, n_trees,contamination=0.01, random_state=3):
+def detect_anomalies(model,df, n_trees,contamination=0.01, random_state=3, **kwargs):
     features = df[['returns', 'volatility', 'volume']].copy()
     features['volume'] = features['volume'].ffill()
 
