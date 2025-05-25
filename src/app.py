@@ -19,7 +19,7 @@ st.set_page_config(page_title="QuantSecGuard", layout="centered")
 st.title("QuantSecGuard - Market Anomaly Detector")
 
 # Sidebar inputs
-model=st.sidebar.radio("Select Model", ["IsolationForest"])
+model=st.sidebar.radio("Select Model", ["IsolationForest","One Class SVM"])
 source = st.sidebar.radio("Data Source", ["Stock", "Crypto"])
 if source == "Crypto":
     crypto_symbol = st.sidebar.text_input("Crypto Pair", "BTCGBP")
