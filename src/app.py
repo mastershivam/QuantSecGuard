@@ -52,6 +52,8 @@ elif source == "Crypto":
 
 
 
+
+
 # data pulling logic
 if st.sidebar.button("Run Detection") or live_update:
     while True:
@@ -66,6 +68,10 @@ if st.sidebar.button("Run Detection") or live_update:
                     df = generate_features(df)
                     df, anomalies = detect_anomalies(model,df,n_trees)
                 st.info(f"Pulled {len(df)} data points for analysis.")
+                if df.empty:
+                    st.error("No valid data available after processing. Try a different date range or ticker.")
+                    st.stop()
+                st.write(f"Pulled {len(df)} rows from Binance")
 
 
                 # Plotting variables
