@@ -5,4 +5,4 @@ matplotlib
 pandas
 requests
 numpy
-binance~=0.3.46
+python-binance
