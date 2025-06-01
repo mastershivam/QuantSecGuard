@@ -20,7 +20,7 @@ st.title("QuantSecGuard - Market Anomaly Detector")
 
 # Sidebar inputs
 model=st.sidebar.radio("Select Model", ["IsolationForest","One Class SVM"])
-source = st.sidebar.radio("Data Source", ["Stock", "Crypto"])
+source = st.sidebar.radio("Data Source", ["Stock"])
 if source == "Crypto":
     crypto_symbol = st.sidebar.text_input("Crypto Pair", "BTCGBP")
     crypto_interval = st.sidebar.selectbox("Crypto Interval", ["1m", "5m", "15m", "1h", "4h", "1d"])
@@ -38,6 +38,7 @@ n_trees= int(n_trees)
 live_update = st.sidebar.checkbox("🔄 Enable Live Update")
 refresh_seconds = st.sidebar.number_input("Update every (seconds)", min_value=1, max_value=300, value=60, step=10)
 
+st.caption("Crypto is coming soon!")
 # Stock specific inputs
 if source == "Stock":
     start, end = estimate_date_range(stock_period)

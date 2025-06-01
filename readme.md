@@ -18,9 +18,11 @@ This project applies unsupervised learning to detect unusual behavior in market 
 - Feature engineering (returns, volatility, volume)
 - Parameter tuning via F1-score with synthetic anomaly injection
 - Real-time data ingestion using `yfinance` (stocks)
-- Real-time data ingestion using `Binance` (crypto)
 - Modular time series selection for all stocks/cryptos
 - Real-time Binance data ingestion
+
+-Broken:
+    -Real-time data ingestion using `Binance` (crypto)-WIP
 
 ## Project Structure
 
