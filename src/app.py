@@ -49,11 +49,6 @@ elif source == "Crypto":
     st.caption(f"📊 {limit} data points over ~{duration}")
     st.caption(f"📆 Estimated Date Range: {start} → {end}")
 
-
-
-
-
-
 # data pulling logic
 if st.sidebar.button("Run Detection") or live_update:
     while True:

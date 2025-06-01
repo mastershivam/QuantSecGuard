@@ -17,6 +17,21 @@ def get_stock_data(ticker,period,interval):
     return df
 
 def get_binance_data(symbol='BTCUSDT', interval='1m', limit=500):
+    from binance.client import Client
+    from binance.exceptions import BinanceAPIException
+
+    client = Client()  # assuming you're using public (no API key)
+
+    try:
+        data = client.get_historical_klines(symbol, interval)
+        if not data:
+            print("❗ No data returned. Double-check the symbol and date range.")
+        else:
+            print(f"✅ Pulled {len(data)} rows")
+    except BinanceAPIException as e:
+        print(f"🚨 Binance API error: {e.message} (code: {e.code})")
+    except Exception as e:
+        print(f"🔥 Unexpected error: {e}")
     url = "https://api.binance.com/api/v3/klines"
     params = {'symbol': symbol, 'interval': interval, 'limit': limit}
     response = requests.get(url, params=params)
