@@ -97,3 +97,23 @@ def estimate_crypto_date_range(interval, limit):
 def get_time_format(interval):
     intraday_intervals = ['1m', '3m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '8h', '12h']
     return '%Y-%m-%d %H:%M' if interval in intraday_intervals else '%Y-%m-%d'
+
+def generate_features(df):
+    df = df.copy()
+    df['returns'] = df['price'].pct_change().fillna(0)
+    df['volatility'] = df['returns'].rolling(window=5).std().fillna(0)
+    df['volume'] = df['volume'].ffill()
+    df = df.dropna()
+    return df
+
+import numpy as np
+
+def inject_synthetic_anomalies(df, anomaly_fraction=0.02):
+    df = df.copy()
+    n = len(df)
+    k = int(n * anomaly_fraction)
+    anomaly_indices = np.random.choice(df.index, k, replace=False)
+    df['label'] = 0
+    df.loc[anomaly_indices, 'price'] *= np.random.uniform(1.1, 1.5, size=k)  # simulate spikes
+    df.loc[anomaly_indices, 'label'] = 1
+    return df

@@ -7,7 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 import pandas as pd
 from sklearn.ensemble import IsolationForest
 
-def detect_anomalies(model,df, n_trees,contamination=0.01, random_state=3, **kwargs):
+def detect_anomalies(model,df, n_trees,contamination=0.005, random_state=1, **kwargs):
     features = df[['returns', 'volatility', 'volume']].copy()
     features['volume'] = features['volume'].ffill()
 
@@ -16,7 +16,7 @@ def detect_anomalies(model,df, n_trees,contamination=0.01, random_state=3, **kwa
             n_estimators=n_trees,
             contamination=contamination,
             random_state=random_state,
-            max_features=1.0
+            max_features=0.75
         )
         preds = model.fit_predict(features)
     elif model == "One Class SVM":
@@ -24,6 +24,7 @@ def detect_anomalies(model,df, n_trees,contamination=0.01, random_state=3, **kwa
             nu=kwargs.get('nu', 0.05),
             kernel='rbf',
             gamma='auto'
+
         )
         preds = model.fit_predict(features)
 
