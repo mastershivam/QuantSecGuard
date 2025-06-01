@@ -4,6 +4,8 @@ import requests
 import pandas as pd
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 import yfinance as yf
+from Binance.client import Client
+from Binance.exceptions import BinanceAPIException
 
 def get_stock_data(ticker,period,interval):
 
@@ -17,8 +19,7 @@ def get_stock_data(ticker,period,interval):
     return df
 
 def get_binance_data(symbol='BTCUSDT', interval='1m', limit=500):
-    from binance.client import Client
-    from binance.exceptions import BinanceAPIException
+
 
     client = Client()  # assuming you're using public (no API key)
 
