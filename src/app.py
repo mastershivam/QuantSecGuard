@@ -61,17 +61,21 @@ if st.sidebar.button("Run Detection") or live_update:
             try:
                 if source=="Stock":
                     df = get_stock_data(ticker=stock_ticker, period=stock_period,interval=stock_interval)
+                    if df.empty:
+                        st.error("No valid data available after processing. Try a different date range or ticker.")
+                        st.stop()
                     df = generate_features(df)
                     df, anomalies = detect_anomalies(model,df,n_trees)
                 elif source=="Crypto":
                     df = get_binance_data(symbol=crypto_symbol, interval=crypto_interval,limit=limit)
+                    if df.empty:
+                        st.error("No valid data available after processing. Try a different date range or ticker.")
+                        st.stop()
                     df = generate_features(df)
                     df, anomalies = detect_anomalies(model,df,n_trees)
                 st.info(f"Pulled {len(df)} data points for analysis.")
-                if df.empty:
-                    st.error("No valid data available after processing. Try a different date range or ticker.")
-                    st.stop()
-                st.write(f"Pulled {len(df)} rows from Binance")
+
+
 
 
                 # Plotting variables
